@@ -7,6 +7,7 @@ public class SegmentController : MonoBehaviour
 {
     [SerializeField] private int value;
     [SerializeField] private Text Visual;
+    [SerializeField] public float myAngle;
 
     public int Value
     {

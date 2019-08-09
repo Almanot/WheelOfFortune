@@ -68,16 +68,12 @@
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Procedural Mesh\ExtrudeRandomEdges.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Vertex Colors\HighlightNearestFace.cs" />
-    <Compile Include="Assets\Scripts\CheckValue.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameMenuManager.cs" />
     <Compile Include="Assets\Scripts\Progress.cs" />
-    <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\Saver.cs" />
     <Compile Include="Assets\Scripts\SegmentController.cs" />
-    <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_TransparentOverlay.shader" />
     <None Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_SelectionPicker.shader" />

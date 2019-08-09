@@ -112,7 +112,6 @@
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_MissingScriptEditor.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_Preferences.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_ScenePostProcessor.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/Unity Projects/Test Project For DMND Games Wheel of Fortune/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

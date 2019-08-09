@@ -20,31 +20,14 @@ public class UIManager : MonoBehaviour
         {
             manager = GameManager.instance;
         }
-        if (manager.PlayerScore <= 1000) PlayerScore.text = manager.PlayerScore.ToString();
-        else if (manager.PlayerScore > 1000 && manager.PlayerScore < 1000000)
+        if (manager.PlayerScore <= 1000) PlayerScore.text = manager.PlayerScore.ToString(); //if less then 1000 (for example 0) do nothing
+        else if (manager.PlayerScore > 1000 && manager.PlayerScore < 1000000)// if more than 1000 add k letter to the end
         {
             PlayerScore.text = (manager.PlayerScore / 1000).ToString() + "k";
         }
-        else if (manager.PlayerScore >= 1000000)
+        else if (manager.PlayerScore >= 1000000)//if more than million, add m letter to the end
         {
             PlayerScore.text = (manager.PlayerScore / 1000000).ToString() + "m";
-        }
-    }
-
-    void UpdateScoreUI2()
-    {
-        bool temp = manager.PlayerScore >= 1000000 ? true : false;
-        switch (temp)
-        {
-            case true:
-                PlayerScore.text = (manager.PlayerScore / 1000000).ToString() + "m";
-                break;
-            case false:
-                PlayerScore.text = (manager.PlayerScore / 1000).ToString() + "k";
-                break;
-            default:
-                PlayerScore.text = manager.PlayerScore.ToString();
-                break;
         }
     }
 }

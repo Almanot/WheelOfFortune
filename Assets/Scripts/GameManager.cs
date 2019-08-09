@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,17 +21,55 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private float playerScore = 0;
+
+    [Header("Segment values and references")]
     [SerializeField] int[] segments = new int[16];
     [SerializeField] private SegmentController[] segmentText;
+    [SerializeField] private GameObject WheelGameObject;
+
+    [Header("Visual illusion of rotations")]
+    [SerializeField] float FalseRotations;
+    [SerializeField] float rotationDegrees;
+
+    [Header("Angle of win position")]
+    [SerializeField] private float winAngle;
+    [SerializeField] private SegmentController WinPosition;
+    
+
     public ScoreUp ScoreUpCallBack;
-    [SerializeField] private float playerScore = 0;
-    [SerializeField] private GameObject Wheel;
-    int counter = 0;
+    float NumberOfRotations;
+    RectTransform wheel;
+
 
     private void Start()
     {
-        SetSegmentsValue();
+        wheel = WheelGameObject.GetComponent<RectTransform>();
+        GenerateNewSectionValue();
         LoadTheProgress();
+    }
+
+    SegmentController ChooseRandomSegment(SegmentController[] segments)
+    {
+        return segments[Random.Range(0, segments.Length)];
+    }
+
+    public void LaunchRotation()
+    {
+        WinPosition = ChooseRandomSegment(segmentText);
+        winAngle = WinPosition.myAngle;
+        // False Rotations Count + subtraction the current offset + Win Angle Value = full amount of degrees to turn the wheel;
+        NumberOfRotations = (FalseRotations * 360) + (360 - wheel.transform.eulerAngles.z) + winAngle;
+        StartCoroutine("LaunchTheWheel");
+    }
+    IEnumerator LaunchTheWheel()
+    {
+        for (float i = 0; i < NumberOfRotations; i += rotationDegrees)
+        {
+            wheel.Rotate(new Vector3(0, 0, rotationDegrees));
+            yield return null;
+        }
+        PlayerScore = WinPosition.Value;
     }
 
     public float PlayerScore
@@ -39,6 +78,7 @@ public class GameManager : MonoBehaviour
         set
         {
             playerScore += value;
+            Debug.Log("Added " + value);
             ScoreUpCallBack?.Invoke();
         }
     }
@@ -48,9 +88,8 @@ public class GameManager : MonoBehaviour
         Progress progress = Saver.LoadTheProgress();
         if (progress != null)
         {
-            Debug.Log("Progress Loaded");
             playerScore = progress.ScoreValue;
-            ScoreUpCallBack?.Invoke();
+            ScoreUpCallBack?.Invoke(); // update recordUI
         }
     }
     void SaveTheProgress()
@@ -70,13 +109,7 @@ public class GameManager : MonoBehaviour
         ScoreUpCallBack?.Invoke();
     }
 
-    public void LaunchWheel()
-    {
-        int random = Random.Range(1, 10) * 100;
-        Wheel.GetComponent<Rigidbody>().AddTorque(Vector3.forward * random, ForceMode.Force);
-    }
-
-    void SetSegmentsValue()
+    void GenerateNewSectionValue() // generate and save unique value for every section of wheel
     {
         for (int i = 0; i < segments.Length; i++)
         {
@@ -85,7 +118,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    int GenerateUniqueValue()
+    int counter = 0;
+    int GenerateUniqueValue() // generate unique value with interval 1000 between other values
     {
 
         int random = Random.Range(10, 1000) * 100;
